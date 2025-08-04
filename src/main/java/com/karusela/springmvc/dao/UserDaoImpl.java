@@ -4,22 +4,21 @@ import com.karusela.springmvc.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class UserDaoImpl implements UserDao{
-    @Autowired
-    private SessionFactory sessionFactory;
+import javax.persistence.EntityManager;
+import java.util.List;
 
-    @Override
-    public void add(User user) {
-        sessionFactory.getCurrentSession().save(user);
-    }
+@Repository
+public class UserDaoImpl implements UserDao {
+
+    @Autowired
+    private EntityManager entityManager;
+
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<User> listUsers() {
-        TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
+    public List<User> getAllUsers() {
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
         return query.getResultList();
     }
 
-}
 }
