@@ -1,24 +1,35 @@
 package com.karusela.springmvc.dao;
 
 import com.karusela.springmvc.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
 
     @Override
     @SuppressWarnings("unchecked")
     public List<User> getAllUsers() {
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
-        return query.getResultList();
+        List<User> allUsers = entityManager
+                .createQuery("SELECT u FROM User u", User.class)
+                .getResultList();
+
+        return allUsers;
     }
 
+    @Override
+    public void saveUser(User user) {
+        User merged = entityManager.merge(user);
+    }
+
+    @Override
+    public User getUser(int id) {
+        return entityManager.find(User.class, id);
+    }
 }

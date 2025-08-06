@@ -1,20 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
 </head>
-<body>
 
-<!--<p th:text="${result}"/>-->
-<div th:text = "User : ${result}">
-    <br><br>
-</div>
-<!--<div th:each="car : ${result}">-->
-<!--    <span th:text="'Model - ' + ${car.model} + '; '">Car Model</span>-->
-<!--    <span th:text="'Color - ' + ${car.color} + '; '">Car Color</span>-->
-<!--    <span th:text="'Driver - ' + ${car.driver} + '; '">Car driver</span>-->
-<!--    <br><br>-->
-<!--</div>-->
+<body>
+<h2>LIST OF ALL USERS</h2>
+<br>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Operations</th>
+    </tr>
+
+    <tr th:each="user : ${result}">
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.surname}"></td>
+        <td th:text="${user.age}"></td>
+        <td>
+            <button th:onclick="'window.location.href=\'updateInfo?userid=' + ${user.id} + '\''">
+                Update
+            </button>
+        </td>
+    </tr>
+</table>
+<br>
+<input type="button" value="Add"
+       onclick="window.location.href = 'addNewUser'"/>
 </body>
+
 </html>
