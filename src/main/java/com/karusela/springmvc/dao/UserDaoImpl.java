@@ -2,6 +2,7 @@ package com.karusela.springmvc.dao;
 
 import com.karusela.springmvc.entity.User;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -15,7 +16,6 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<User> getAllUsers() {
         List<User> allUsers = entityManager
                 .createQuery("SELECT u FROM User u", User.class)
